@@ -1,0 +1,4 @@
+ZDOTDIR=$HOME/.zsh
+PAGER=less
+VISUAL=nvim
+EDITOR=nvim

@@ -1,0 +1,22 @@
+[alias]
+	st = status
+	co = checkout
+	dc = diff --cached
+	di = diff
+	ci = commit --verbose
+	fa = fetch --all
+	pf = push --force-with-lease
+	amend = commit --amend
+
+[merge]
+	# Fast-forward merge only by default - override with --no-ff
+	ff = only
+
+# URL shorthands - rewrite prefixes
+# github:org/repo -> ssh://git@github.com/org/repo
+[url "ssh://git@github.com/"]
+	insteadOf = "github:"
+
+# Allow config overrides for different environments - e.g. work and personal
+[include]
+	path = ~/.gitconfig-override
