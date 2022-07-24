@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DOTFILES_PACKAGES=git:nvim:zsh:tmux:personal
+DOTFILES_PACKAGES=git:nvim:zsh:tmux:personal:kitty:starship
 
 # Don't attempt to "fold" trees of symlinks by creating a symlink to a
 # directory - always create symlinks to the leaves of the tree. This
