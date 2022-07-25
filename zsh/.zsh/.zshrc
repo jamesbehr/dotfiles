@@ -19,6 +19,13 @@ case "$(whichos)" in
         ;;
 esac
 
+# Directory management
+setopt AUTO_PUSHD            # make cd become pushd (push directories onto stack), use popd to navigate back up directory stack
+unsetopt PUSHD_MINUS         # use cd +N to go to Nth directory in history
+setopt PUSHD_IGNORE_DUPS     # don't push duplicates to directory stock
+setopt PUSHD_SILENT          # don't print directory stack for pushd/popd
+setopt AUTO_CD               # type just the name of a directory to cd into it (e.g. `..` is the same as `cd ..`)
+
 # History
 HISTFILE="$ZDOTDIR/.zhistory"
 HISTSIZE=50000
