@@ -3,14 +3,13 @@ set -euo pipefail
 
 DOTFILESRC=${DOTFILESRC:-"$HOME/.dotfilesrc"}
 
-if [ -f "$DOTFILESRC" ]; then
-    echo "Loading dotfiles configuration"
-    source "$DOTFILESRC"
-else
-    echo "Creating and loading default dotfiles configuration"
-    mv .dotfilesrc "$DOTFILESRC"
-    source "$DOTFILESRC"
+if [ ! -f "$DOTFILESRC" ]; then
+    echo "Creating default dotfiles configuration"
+    cp .dotfilesrc "$DOTFILESRC"
 fi
+
+echo "Loading dotfiles configuration"
+source "$DOTFILESRC"
 
 # Don't attempt to "fold" trees of symlinks by creating a symlink to a
 # directory - always create symlinks to the leaves of the tree. This
