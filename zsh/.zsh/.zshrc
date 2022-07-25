@@ -2,6 +2,8 @@
 bindkey -v
 
 alias g=git
+alias vim=nvim
+alias v=vim
 
 autoload -Uz compinit
 compinit
