@@ -1,7 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DOTFILES_PACKAGES=git:nvim:zsh:tmux:personal:kitty:starship
+DOTFILESRC=${DOTFILESRC:-"$HOME/.dotfilesrc"}
+
+if [ -f "$DOTFILESRC" ]; then
+    echo "Loading dotfiles configuration"
+    source "$DOTFILESRC"
+else
+    echo "Creating and loading default dotfiles configuration"
+    mv .dotfilesrc "$DOTFILESRC"
+    source "$DOTFILESRC"
+fi
 
 # Don't attempt to "fold" trees of symlinks by creating a symlink to a
 # directory - always create symlinks to the leaves of the tree. This
@@ -11,5 +20,6 @@ DOTFILES_PACKAGES=git:nvim:zsh:tmux:personal:kitty:starship
 # suddenly appear in the repository which is undesired behaviour.
 IFS=:
 for package in $DOTFILES_PACKAGES; do
+    echo "Symlinking $package dotfiles"
 	stow --restow --no-folding "$package"
 done
