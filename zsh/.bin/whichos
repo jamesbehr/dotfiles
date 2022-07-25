@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+function find_distro {
+    source /etc/os-release
+    case "$ID" in
+        arch)
+            echo archlinux
+            ;;
+        *)
+            exit 1
+            ;;
+    esac
+}
+
+case "$(uname -s)" in
+    Darwin)
+        echo macos
+        ;;
+    Linux)
+        find_distro
+        ;;
+    *)
+        exit 1
+        ;;
+esac

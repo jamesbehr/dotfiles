@@ -8,12 +8,12 @@ compinit
 
 autoload zmv
 
-case "$(uname -s)" in
-    Darwin)
+case "$(whichos)" in
+    macos)
         source /usr/local/Cellar/fzf/*/shell/key-bindings.zsh
         source /usr/local/Cellar/fzf/*/shell/completion.zsh
         ;;
-    Linux)
+    archlinux)
         source /usr/share/fzf/key-bindings.zsh
         source /usr/share/fzf/completion.zsh
         ;;
