@@ -8,8 +8,16 @@ compinit
 
 autoload zmv
 
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
+case "$(uname -s)" in
+    Darwin)
+        source /usr/local/Cellar/fzf/*/shell/key-bindings.zsh
+        source /usr/local/Cellar/fzf/*/shell/completion.zsh
+        ;;
+    Linux)
+        source /usr/share/fzf/key-bindings.zsh
+        source /usr/share/fzf/completion.zsh
+        ;;
+esac
 
 # History
 HISTFILE="$ZDOTDIR/.zhistory"
