@@ -45,11 +45,6 @@ function list_relative_directories {
     (cd "$1" && ls -ad */)
 }
 
-function interactive_grep {
-    # Start an interactive FZF session only if the query argument is ambiguous
-    fzf --select-1 --exit-0 --query="$1"
-}
-
 function fuzzily_cd_relative_to {
     local origin="$1"
     local query="$2"

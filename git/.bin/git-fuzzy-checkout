@@ -1,0 +1,8 @@
+#1/usr/bin/env bash
+
+branch="$(git branch --list --format='%(refname:short)' | interactive_grep "$1")"
+if [ -z "$branch" ]; then
+    echo "$0: no matching branch $1"
+else
+    git checkout "$branch"
+fi

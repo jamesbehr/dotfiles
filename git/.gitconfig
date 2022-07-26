@@ -1,6 +1,7 @@
 [alias]
 	st = status
-	co = checkout
+    co = checkout
+    cof = fuzzy-checkout
 	dc = diff --cached
 	di = diff
 	ci = commit --verbose
