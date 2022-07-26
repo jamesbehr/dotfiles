@@ -1,6 +1,20 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# This script can be called from the web. If this is the case, clone the
+# dotfiles repository to the expected install location. Also ensure we're in
+# the correct install directory. After this point the install/upgrade
+# procedures should be the same.
+if [ ! -d ~/dotfiles ]; then
+    git clone git@github.com:jamesbehr/dotfiles.git ~/dotfiles
+fi
+
+cd ~/dotfiles
+
+# Install any missing packages. This will usually help install GNU Stow which
+# is needed for the following steps
+./backpack
+
 DOTFILESRC=${DOTFILESRC:-"$HOME/.dotfilesrc"}
 
 if [ ! -f "$DOTFILESRC" ]; then

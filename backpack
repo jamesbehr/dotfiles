@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -eou pipefail
+
+PKGROOT="$HOME/.config/backpack"
+
+function desired_packages {
+    if [ -d $PKGROOT/packages/$1 ]; then
+        sort $PKGROOT/packages/$1/* | uniq
+    fi
+}
+
+provider_paths=($(dirname $0))
+
+candidate_providers=()
+for directory in ${provider_paths[@]}; do
+    candidate_providers+=($(find "$directory" -maxdepth 1 -type f -executable -name 'backpack-*'))
+done
+
+for provider in ${candidate_providers[@]}; do
+    # Check that the provider implements the interface and is available on this machine
+    if ! $provider --provider-supported 1>/dev/null 2>&1; then
+        continue
+    fi
+
+    id="$($provider --provider-id)"
+    if [ -z "$id" ]; then
+        continue
+    fi
+
+    # Find the packages that we want to be installed that aren't and install them
+    comm -23 <(desired_packages $id) <($provider --list-installed-packages) | $provider --install
+done

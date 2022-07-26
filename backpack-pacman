@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -eou pipefail
+
+case "$1" in
+    --provider-supported)
+        which pacman
+        ;;
+    --setup-provider)
+        ;;
+    --list-installed-packages)
+        pacman -Qe | awk '{ print $1 }' | sort
+        ;;
+    --provider-id)
+        echo pacman
+        ;;
+    --install)
+        xargs --no-run-if-empty sudo pacman --noconfirm -Syy
+        ;;
+    *)
+        exit 1
+        ;;
+esac
