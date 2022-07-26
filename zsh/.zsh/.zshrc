@@ -40,3 +40,37 @@ setopt HIST_VERIFY            # show command with history expansion to user befo
 setopt SHARE_HISTORY          # save and reload history incrementally
 
 source <(starship init zsh --print-full-init)
+
+function list_relative_directories {
+    (cd "$1" && ls -ad */)
+}
+
+function interactive_grep {
+    # Start an interactive FZF session only if the query argument is ambiguous
+    fzf --select-1 --exit-0 --query="$1"
+}
+
+function fuzzily_cd_relative_to {
+    local origin="$1"
+    local query="$2"
+    local directory="$(list_relative_directories "$origin" | interactive_grep "$query")"
+
+    if [ -z "$directory" ]; then
+        echo "$0: no such file or directory: $query"
+        return 1
+    else
+        cd "$origin/$directory"
+    fi
+}
+
+function cdf {
+    fuzzily_cd_relative_to "$PWD" "$1"
+}
+
+function p {
+    fuzzily_cd_relative_to ~/code "$1"
+}
+
+function dots {
+    cd ~/dotfiles
+}
