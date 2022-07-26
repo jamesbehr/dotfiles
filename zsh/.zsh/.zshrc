@@ -1,7 +1,6 @@
 # Enable vi keybindings in the shell
 bindkey -v
 
-alias g=git
 alias vim=nvim
 alias v=vim
 
@@ -68,4 +67,13 @@ function p {
 
 function dots {
     cd ~/dotfiles
+}
+
+function g {
+    # Make `git` with no arguments behave like `git status`
+    if [[ $# -gt 0 ]]; then
+        git "$@"
+    else
+        git status
+    fi
 }
