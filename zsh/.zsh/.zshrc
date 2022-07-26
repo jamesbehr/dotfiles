@@ -38,7 +38,8 @@ setopt HIST_IGNORE_SPACE      # ignore commands that start with space
 setopt HIST_VERIFY            # show command with history expansion to user before running it
 setopt SHARE_HISTORY          # save and reload history incrementally
 
-source <(starship init zsh --print-full-init)
+# Prompt
+make -C "$ZDOTDIR/prompt" > /dev/null && . "$ZDOTDIR/prompt/prompt.zsh"
 
 function list_relative_directories {
     (cd "$1" && ls -ad */)

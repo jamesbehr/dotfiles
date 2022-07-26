@@ -1,5 +1,0 @@
-right_format = """$all"""
-format = """$directory $character"""
-add_newline = false
-scan_timeout = 10
-command_timeout = 20

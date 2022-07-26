@@ -1,0 +1,89 @@
+#!/usr/bin/env ruby
+
+require 'stringio'
+
+class ConditionalResult
+  attr_reader :true_case, :false_case, :test
+
+  def initialize(test, true_case='', false_case='')
+    @test = test
+    @false_case = false_case
+
+    if block_given?
+      @true_case = yield
+    else
+      @true_case = true_case
+    end
+  end
+
+  def else
+    if block_given?
+      @false_case = yield
+    end
+
+    separator = '.'
+    "%(#{test}#{separator}#{true_case}#{separator}#{false_case})"
+  end
+end
+
+def color(color, text='')
+  text = block_given? ? yield : text
+  "%F{#{color}}#{text}%f"
+end
+
+def conditional(test, true_case='', false_case='', &block)
+  ConditionalResult.new(test, true_case, false_case, &block)
+end
+
+def exit_status(text)
+  conditional '?' do
+    color 'green', text
+  end.else do
+    color 'red', text
+  end
+end
+
+def username
+  color 'cyan', '%n'
+end
+
+def hostname
+  color 'cyan', '%m'
+end
+
+def cwd
+  color 'cyan', '%~'
+end
+
+def character
+  conditional '!' do
+    exit_status '#'
+  end.else do
+    exit_status '$'
+  end
+end
+
+def vcs_branch
+  color 'red', '%b'
+end
+
+puts <<ZSH
+autoload -Uz vcs_info
+setopt PROMPT_SUBST
+
+function precmd {
+  vcs_info
+
+  if [[ "$SSH_CONNECTION" ]]; then
+    _prompt_hostname='#{username}@#{hostname} '
+  else
+    _prompt_hostname=''
+  fi
+}
+
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git:*' formats '#{vcs_branch}'
+
+PROMPT='$_prompt_hostname#{cwd} #{character} '
+RPROMPT='$vcs_info_msg_0_'
+ZSH
