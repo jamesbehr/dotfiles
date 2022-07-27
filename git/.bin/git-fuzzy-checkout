@@ -1,4 +1,4 @@
-#1/usr/bin/env bash
+#!/usr/bin/env bash
 
 branch="$(git branch --list --format='%(refname:short)' | interactive_grep "$1")"
 if [ -z "$branch" ]; then
