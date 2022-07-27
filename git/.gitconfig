@@ -16,6 +16,9 @@
 	# Fast-forward merge only by default - override with --no-ff
     ff = only
 
+[pull]
+    ff = only
+
 # URL shorthands - rewrite prefixes
 # github:org/repo -> ssh://git@github.com/org/repo
 [url "ssh://git@github.com/"]
