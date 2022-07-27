@@ -13,10 +13,16 @@ provider_paths=($(dirname $0))
 
 candidate_providers=()
 for directory in ${provider_paths[@]}; do
-    candidate_providers+=($(find "$directory" -maxdepth 1 -type f -executable -name 'backpack-*'))
+    # Find -executuable predicate is not supported on macOS. Executability will
+    # be tested later by trying to run it
+    candidate_providers+=($(find "$directory" -maxdepth 1 -type f -name 'backpack-*'))
 done
 
 for provider in ${candidate_providers[@]}; do
+    if [[ ! -x $provider ]]; then
+        continue
+    fi
+
     # Check that the provider implements the interface and is available on this machine
     if ! $provider --provider-supported 1>/dev/null 2>&1; then
         continue
@@ -26,6 +32,12 @@ for provider in ${candidate_providers[@]}; do
     if [ -z "$id" ]; then
         continue
     fi
+
+    echo "Setting up package provider $id"
+
+    $provider --setup-provider
+
+    echo "Installing misisng packages for provider $id"
 
     # Find the packages that we want to be installed that aren't and install them
     comm -23 <(desired_packages $id) <($provider --list-installed-packages) | $provider --install
