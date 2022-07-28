@@ -38,10 +38,23 @@ source "$DOTFILESRC"
 # application writes to a directory that was created by Stow. If we
 # symlinked to a directory, any files added to that directory would
 # suddenly appear in the repository which is undesired behaviour.
+OLDIFS=$IFS
 IFS=:
 for package in $DOTFILES_PACKAGES; do
     echo "Symlinking $package dotfiles"
 	stow --restow --no-folding "$package"
+done
+
+echo "Cleaning up broken links"
+IFS=$OLDIFS
+for symlink in $(find ~ -type l 2>/dev/null); do
+    target="$(readlink -f $symlink || true)"
+    if [[ "$target" = $HOME/dotfiles/* ]]; then
+        if ! readlink -f $symlink > /dev/null; then
+            rm $symlink
+            # TODO: Clean up empty parent directories
+        fi
+    fi
 done
 
 # Install any packages required by the installed packages
