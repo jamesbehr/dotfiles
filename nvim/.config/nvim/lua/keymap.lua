@@ -8,5 +8,6 @@ local function bind(op, outer_opts)
 end
 
 M.nnoremap = bind("n", {noremap = true})
+M.bind = bind
 
 return M
