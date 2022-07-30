@@ -27,3 +27,7 @@ end
 config["solargraph"].setup({
     on_attach = on_attach,
 })
+
+config["gopls"].setup({
+    on_attach = on_attach,
+})
