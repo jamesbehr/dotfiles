@@ -14,6 +14,7 @@ return require('packer').startup(function(use)
     use("nvim-telescope/telescope-file-browser.nvim")
     use("EdenEast/nightfox.nvim")
     use("neovim/nvim-lspconfig")
+    use({'echasnovski/mini.nvim', branch = 'stable'})
 
     if packer_bootstrap then
         require('packer').sync()
