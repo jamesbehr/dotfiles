@@ -15,6 +15,7 @@ return require('packer').startup(function(use)
     use("EdenEast/nightfox.nvim")
     use("neovim/nvim-lspconfig")
     use({'echasnovski/mini.nvim', branch = 'stable'})
+    use({"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"})
 
     if packer_bootstrap then
         require('packer').sync()
