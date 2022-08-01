@@ -21,7 +21,11 @@ local on_attach = function (client, bufnr)
     nmap("<leader>rn", vim.lsp.buf.rename)
     nmap("<leader>ca", vim.lsp.buf.code_action)
     nmap("gr", vim.lsp.buf.references)
-    nmap("<leader>f", vim.lsp.buf.formatting)
+
+    vim.api.nvim_create_autocmd({"BufWritePre"}, {
+        buffer = bufnr,
+        callback = vim.lsp.buf.formatting,
+    })
 end
 
 config["solargraph"].setup({
