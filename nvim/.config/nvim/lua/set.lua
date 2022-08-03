@@ -13,4 +13,7 @@ vim.opt.hlsearch = true
 
 vim.opt.wrap = false
 
+-- Global status line
+vim.opt.laststatus = 3
+
 vim.g.mapleader = " "
