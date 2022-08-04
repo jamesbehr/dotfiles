@@ -32,3 +32,11 @@ function p {
 function dots {
     cd ~/dotfiles
 }
+
+function parent_directory_widget {
+    cd ..
+    zle reset-prompt
+}
+
+zle -N parent-directory parent_directory_widget
+bindkey -M viins '\e.' parent-directory
