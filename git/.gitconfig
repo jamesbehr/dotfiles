@@ -1,5 +1,4 @@
 [alias]
-    st = status
     co = checkout
     cof = fuzzy-checkout
     dc = diff --cached
