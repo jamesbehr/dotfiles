@@ -4,6 +4,18 @@ local builtin = require("telescope.builtin")
 local extensions = require("telescope").extensions
 
 require("telescope").setup({
+    defaults = {
+        vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+            '--hidden',
+        },
+    },
     extensions = {
         fzf = {
             fuzzy = true,
@@ -32,10 +44,10 @@ nnoremap("<leader><leader>", function()
     end
 end)
 
-nnoremap("<leader><return>", function()
-    builtin.buffers()
-end)
+nnoremap("<leader><return>", builtin.buffers)
 
 nnoremap("<leader>f", function()
     extensions.file_browser.file_browser({ path = "%:p:h" })
 end)
+
+nnoremap("<leader>rg", builtin.live_grep)
