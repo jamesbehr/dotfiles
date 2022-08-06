@@ -13,6 +13,6 @@ script again.
     cd ~/dotfiles
     ./update
 
-My dotfiles are managed by [Stowaway](https://github.com/jamesbehr/dotfiles) a
+My dotfiles are managed by [Stowaway](https://github.com/jamesbehr/stowaway) a
 tool which manages symlinks. Each dotfile is created as a symlink to one of the
 files in this repo.
