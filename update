@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Reinstall packages that were previously installed
+stowaway packages --target "$HOME" --prefix "$(dirname $0)" |
+    xargs stowaway stow --target "$HOME"
