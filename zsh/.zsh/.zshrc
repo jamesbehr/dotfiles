@@ -1,6 +1,3 @@
-# Enable vi keybindings in the shell
-bindkey -v
-
 autoload -Uz compinit
 compinit
 
