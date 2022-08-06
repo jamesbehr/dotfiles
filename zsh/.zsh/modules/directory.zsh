@@ -31,6 +31,7 @@ function p {
 
 function dots {
     cd ~/dotfiles
+    git fetch --all &!
 }
 
 function parent_directory_widget {
