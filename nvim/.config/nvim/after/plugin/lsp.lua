@@ -3,6 +3,7 @@ local keymap = require('keymap')
 
 keymap.nnoremap('[d', vim.diagnostic.goto_prev, {silent=true})
 keymap.nnoremap(']d', vim.diagnostic.goto_next, {silent=true})
+keymap.nnoremap('d', vim.diagnostic.open_float, {silent=true})
 
 local organize_imports = function (timeout_ms)
     local params = vim.lsp.util.make_range_params(nil, "utf-16")
