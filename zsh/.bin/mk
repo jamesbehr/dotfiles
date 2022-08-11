@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+# mk - make files and directories
+#
+# usage: mk filename ...
+#
+# Quickly create files and directories. It creates the directories/files names
+# as operands, in the order specified. If the operand ends in a slash, a
+# directory will be created. Otherwise, an empty file will be created. It will
+# also create any missing parent directories. It is not an error to specify a
+# directory or file that already exists.
+#
+# If the operand contains a colon (':'), then the text preceding it will be
+# used as the filename, and the text after is used as the file mode (passed to
+# chmod).
+#
+# Examples:
+#
+# Create a file called 'foo/bar/1', a directory called 'baz' and a file called
+# 'quux' with the execute bit set.
+#
+#     $ mk foo/bar/1 baz/ quux:u+x
+#
+# This is the same as running the following commands:
+#
+#     $ mkdir -p foo/bar
+#     $ touch foo/bar/1
+#     $ mkdir -p baz
+#     $ touch quux
+#     $ chmod u+x quux
+
+while [ $# -gt 0 ]; do
+    local file="$(echo "$1" | cut -d: -f1)"
+    local mode="$(echo "$1" | cut -sd: -f2)"
+
+    case "$file" in
+        */)
+            mkdir -p "$file"
+            ;;
+        *)
+            mkdir -p "$(dirname "$file")"
+            touch "$file"
+            ;;
+    esac
+
+    if [ ! -z "$mode" ]; then
+        chmod "$mode" "$file"
+    fi
+
+    shift
+done

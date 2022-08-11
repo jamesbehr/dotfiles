@@ -21,29 +21,6 @@ function fuzzily_cd_relative_to {
     fi
 }
 
-function mk {
-	while [ $# -gt 0 ]; do
-        local file="$(echo "$1" | cut -d: -f1)"
-        local mode="$(echo "$1" | cut -sd: -f2)"
-
-		case "$file" in
-			*/)
-				mkdir -p "$file"
-				;;
-			*)
-				mkdir -p "$(dirname "$file")"
-				touch "$file"
-				;;
-		esac
-
-        if [ ! -z "$mode" ]; then
-            chmod "$mode" "$file"
-        fi
-
-		shift
-	done
-}
-
 function cdf {
     fuzzily_cd_relative_to "$PWD" "$1"
 }
