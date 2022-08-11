@@ -21,6 +21,21 @@ function fuzzily_cd_relative_to {
     fi
 }
 
+function mk {
+	while [ $# -gt 0 ]; do
+		case "$1" in
+			*/)
+				mkdir -p "$1"
+				;;
+			*)
+				mkdir -p "$(dirname "$1")"
+				touch "$1"
+				;;
+		esac
+		shift
+	done
+}
+
 function cdf {
     fuzzily_cd_relative_to "$PWD" "$1"
 }
