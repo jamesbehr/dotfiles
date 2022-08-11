@@ -23,15 +23,23 @@ function fuzzily_cd_relative_to {
 
 function mk {
 	while [ $# -gt 0 ]; do
-		case "$1" in
+        local file="$(echo "$1" | cut -d: -f1)"
+        local mode="$(echo "$1" | cut -sd: -f2)"
+
+		case "$file" in
 			*/)
-				mkdir -p "$1"
+				mkdir -p "$file"
 				;;
 			*)
-				mkdir -p "$(dirname "$1")"
-				touch "$1"
+				mkdir -p "$(dirname "$file")"
+				touch "$file"
 				;;
 		esac
+
+        if [ ! -z "$mode" ]; then
+            chmod "$mode" "$file"
+        fi
+
 		shift
 	done
 }
