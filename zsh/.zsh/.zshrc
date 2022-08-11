@@ -5,6 +5,14 @@ if [[ ! "$SSH_AUTH_SOCK" ]]; then
     source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
 fi
 
+function reload {
+  if [ -n "$(jobs)" ]; then
+    print -P "Error: %j job(s) in background"
+  else
+    exec zsh
+  fi
+}
+
 autoload -Uz compinit
 compinit
 
