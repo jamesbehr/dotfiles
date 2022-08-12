@@ -3,4 +3,4 @@ export PAGER=less
 export VISUAL=nvim
 export EDITOR=nvim
 export GOPATH=$HOME/go
-export PATH="$PATH:$HOME/.bin:$GOPATH/bin"
+export PATH="$PATH:$HOME/.bin:$GOPATH/bin:$HOME/.local/bin"
