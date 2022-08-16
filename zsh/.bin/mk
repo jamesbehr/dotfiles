@@ -30,8 +30,8 @@
 #     $ chmod u+x quux
 
 while [ $# -gt 0 ]; do
-    local file="$(echo "$1" | cut -d: -f1)"
-    local mode="$(echo "$1" | cut -sd: -f2)"
+    file="$(echo "$1" | cut -d: -f1)"
+    mode="$(echo "$1" | cut -sd: -f2)"
 
     case "$file" in
         */)
