@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+tempfile="$(mktemp)"
+trap 'rm -rf -- "$tempfile"' EXIT
+cat > $tempfile
+sensible-editor "$tempfile"
+cat "$tempfile"

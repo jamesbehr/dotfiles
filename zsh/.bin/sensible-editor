@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -exuo pipefail
+
+for editor in "$VISUAL" "$EDITOR" nvim vim vi nano; do
+    if which "$editor" >/dev/null 2>&1; then
+        exec "$editor" "$@"
+    fi
+done
