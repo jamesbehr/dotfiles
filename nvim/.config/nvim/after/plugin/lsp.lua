@@ -5,7 +5,11 @@ keymap.nnoremap('[d', vim.diagnostic.goto_prev, {silent=true})
 keymap.nnoremap(']d', vim.diagnostic.goto_next, {silent=true})
 keymap.nnoremap('<leader>d', vim.diagnostic.open_float, {silent=true})
 
-local organize_imports = function (timeout_ms)
+local organize_imports = function (client, timeout_ms)
+    if not client.server_capabilities.codeActionProvider then
+        return
+    end
+
     local params = vim.lsp.util.make_range_params(nil, "utf-16")
     params.context = { only = { "source.organizeImports" } }
     local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
@@ -41,7 +45,7 @@ local on_attach = function (client, bufnr)
     vim.api.nvim_create_autocmd({"BufWritePre"}, {
         buffer = bufnr,
         callback = function ()
-            organize_imports(1001)
+            organize_imports(client, 1001)
             vim.lsp.buf.formatting_sync(nil, 1000)
         end,
     })
