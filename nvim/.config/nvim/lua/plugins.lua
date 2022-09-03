@@ -6,26 +6,30 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 return require('packer').startup(function(use)
+    -- Core
     use("wbthomason/packer.nvim")
     use("nvim-lua/plenary.nvim")
     use("nvim-lua/popup.nvim")
-    use("nvim-telescope/telescope.nvim")
-    use({"nvim-telescope/telescope-fzf-native.nvim", run = "make"})
-    use("nvim-telescope/telescope-file-browser.nvim")
-    use("EdenEast/nightfox.nvim")
+
+    -- LSP
     use("neovim/nvim-lspconfig")
-
-    -- Surround
-    use("kylechui/nvim-surround")
-
-    -- Comment
-    use("numToStr/Comment.nvim")
 
     -- Treesitter
     use({"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"})
     use("nvim-treesitter/nvim-treesitter-textobjects")
     use("nvim-treesitter/playground")
     use("nvim-treesitter/nvim-treesitter-context")
+
+    -- Telescope
+    use("nvim-telescope/telescope.nvim")
+    use({"nvim-telescope/telescope-fzf-native.nvim", run = "make"})
+    use("nvim-telescope/telescope-file-browser.nvim")
+
+    -- Surround
+    use("kylechui/nvim-surround")
+
+    -- Comment
+    use("numToStr/Comment.nvim")
 
     -- Snippets
     use("L3MON4D3/LuaSnip")
@@ -40,7 +44,14 @@ return require('packer').startup(function(use)
     use("f3fora/cmp-spell")
     use("andersevenrud/cmp-tmux")
 
+    -- Presentation
+    use("EdenEast/nightfox.nvim")
+    use("kyazdani42/nvim-web-devicons")
+    use({"nvim-lualine/lualine.nvim", requires = "kyazdani42/nvim-web-devicons"})
+    use({"akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons"})
+    use("lewis6991/gitsigns.nvim")
+
     if packer_bootstrap then
-        require('packer').sync()
+        require("packer").sync()
     end
 end)

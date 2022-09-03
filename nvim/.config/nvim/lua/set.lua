@@ -16,4 +16,6 @@ vim.opt.wrap = false
 -- Global status line
 vim.opt.laststatus = 3
 
+vim.opt.termguicolors = true
+
 vim.g.mapleader = " "
