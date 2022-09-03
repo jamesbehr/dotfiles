@@ -14,10 +14,12 @@ return require('packer').startup(function(use)
     use("nvim-telescope/telescope-file-browser.nvim")
     use("EdenEast/nightfox.nvim")
     use("neovim/nvim-lspconfig")
-    use({'echasnovski/mini.nvim', branch = 'stable'})
 
     -- Surround
     use("kylechui/nvim-surround")
+
+    -- Comment
+    use("numToStr/Comment.nvim")
 
     -- Treesitter
     use({"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"})
