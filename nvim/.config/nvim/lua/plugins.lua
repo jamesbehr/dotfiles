@@ -15,7 +15,12 @@ return require('packer').startup(function(use)
     use("EdenEast/nightfox.nvim")
     use("neovim/nvim-lspconfig")
     use({'echasnovski/mini.nvim', branch = 'stable'})
+
+    -- Treesitter
     use({"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"})
+    use("nvim-treesitter/nvim-treesitter-textobjects")
+    use("nvim-treesitter/playground")
+    use("nvim-treesitter/nvim-treesitter-context")
 
     -- Snippets
     use("L3MON4D3/LuaSnip")
