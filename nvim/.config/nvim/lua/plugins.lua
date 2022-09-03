@@ -16,6 +16,9 @@ return require('packer').startup(function(use)
     use("neovim/nvim-lspconfig")
     use({'echasnovski/mini.nvim', branch = 'stable'})
 
+    -- Surround
+    use("kylechui/nvim-surround")
+
     -- Treesitter
     use({"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"})
     use("nvim-treesitter/nvim-treesitter-textobjects")

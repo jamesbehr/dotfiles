@@ -3,5 +3,3 @@ require('mini.comment').setup({
         textobject = 'ac'
     }
 })
-
-require('mini.surround').setup({})
